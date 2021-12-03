@@ -1,0 +1,32 @@
+Pasos para agregar otra instancia de Kraken
+
+workon kraken37
+
+1. Crear una base de datos en blanco: kraken_<nombre del proyecto>
+    1. Ortorgarle permisos a la base de datos: grant all privileges on kraken_<nombre del proyecto>.* to ‘sumobot’@‘%’
+2. Crear otro archivo de settings
+    1. settings_<nombre del proyecto>.py
+    2. Crear otro archivo de conexión: connection_fajardo.cnf y cambiar el nombre de la base de datos
+3. Ejecutar las migraciones: python manage.py migrate —settings=kraken.settings_<nombre del proyecto>
+
+python manage.py dumpdata app_tablas app_security.modulo app_motores.alerta app_motores.estadofallo app_motores.estadomotor app_motores.tipocombustible app_motores.tipomaquina app_parametros_laguna.tipoparametro app_parametros_laguna.parametrolaguna app_mercadeo.incoterms app_mercadeo.moneda app_mercadeo.unidadpeso app_mantenimiento.procesocamaron app_mantenimiento.tipomuestreocos
+echa app_mantenimiento.tipoalimentacion app_mantenimiento.unidadesarea app_estrategia.activarregistroedicionpl > ../kraken_initial_data.json --settings=kraken.settings
+
+4. Cargar el archivo db.json: python manage.py loaddata ../kraken_initial_data.json —settings=kraken.settings_<nombre del proyecto>
+5. Copiar la configuración del uwsgi
+    1. sudo nano /etc/uwsgi/sites_py3 -> kraken_<nombre del proyecto>.ini
+	socket y env que lleven el nombre del proyecto
+
+6. Copiar la configuracion del nginx
+    1. sudo nano /etc/nginx/conf.d/ -> kraken_<nombre del proyecto>.conf
+    2. Usar el metis.conf
+7. Crear el servicio para envio de reportes de alimentación (por correo)
+    1. Copiar uno de los servicios de la ubicación de los servicios: /etc/systemd/system/<nombre.service>
+    2. Del archivo copiado, modificar la ruta del archivo sh: ExecStart = /opt/webapps/kraken/<archivo.sh>
+    3. Copiar el archivo .sh y modificar el archivo .py que se ejecuta
+        1. Definir el settings correcto
+    4. sudo systemctl start <nombre.service>
+        1. systemctl status <nombre.service> # Para chequear que el servicio esta corriendo bien
+    5. sudo systemctl enable <nombre.service>
+
+Agregar el registro A en el proveedor de dominio.

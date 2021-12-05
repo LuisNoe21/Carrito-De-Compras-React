@@ -19,7 +19,7 @@ const Buscador = () => {
                 value={buscar}
                 onChange={handleChange}
                 ref={reference}
-                placeholder='Busca tus Productos'
+                placeholder='Busca tus Articulos'
             />
         </Contenedor>
     )

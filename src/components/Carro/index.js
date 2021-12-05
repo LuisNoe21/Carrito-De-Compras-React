@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Burbuja } from '../Burbuja'
-//import styles from './estilos'
 import { Contenedor, Button, ListaArticulos, UL, LI, DeleteButton } from './styles'
 
 export const Carro = ({
@@ -16,11 +15,11 @@ export const Carro = ({
     let impto = subTotal * 0.15
     let totalPagar = subTotal + impto
     
-    ////funcion para eliminar el producto
+    
     const eliminar = (x) => {
        // alert('Esta eliminando, ¿Desea Continuar?')
 
-        if(window.confirm('Esta eliminando, ¿Desea continuar con la operacion?')){
+        if(window.confirm('¿Desea eliminar el articulo?')){
             eliminarProducto(x)
         }
         

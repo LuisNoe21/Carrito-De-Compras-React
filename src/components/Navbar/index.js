@@ -1,8 +1,11 @@
 import { useContext } from 'react'
 import { Carro } from '../Carro'
 import Buscador from '../Buscardor';
-import {Nav} from './styles'
+import {Nav, Img} from './styles'
 import AppContext from "../../context/AppContext";
+import carro from "../../assets/imagenes/carro.png"
+
+
 
 export const Navbar = () => {
     
@@ -10,10 +13,18 @@ export const Navbar = () => {
    
     let cantidad = carrito.reduce((acum, actual) => acum + actual.cantidad, 0)
     return (
+
+        <>
         <Nav color='red'>
-            <p>Logo</p>
+            
+        
+            <Img src={carro} alt="carro" />
+            <p>Luis Noe Rodriguez</p>
+            
+            
             <Buscador/>
             <Carro cantidad={cantidad} productos={carrito} eliminarProducto={eliminarProducto} />
         </Nav>
+        </>
     )
 }

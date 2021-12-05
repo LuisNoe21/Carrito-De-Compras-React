@@ -14,3 +14,13 @@ width: 100%;
 height: 60px;
 align-items: center;
 `
+
+export const Img = styled.img`
+width: 50px;
+object-fit: cover;
+margin-right: 0;
+`
+
+export const P = styled.p`
+margin-right: 0px;
+`
